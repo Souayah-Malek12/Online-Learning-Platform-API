@@ -11,7 +11,13 @@ const registreController = async (req, res) => {
                 message : 'please Provide All field' 
             })
         }
-    
+        const allowedRoles = ["Student", "Administrator", "Professor"];
+        if (!allowedRoles.includes(role)) {
+          return res.status(400).send({
+            success: false,
+            message: 'Role must be Student, Administrator, or Professor',
+          });
+        }
         const userExist = await userModel.findOne({email});
         if(userExist){
             return res.status(500).send({
@@ -45,13 +51,20 @@ const registreController = async (req, res) => {
 
 const loginController = async(req, res) => {
     try {
-        const {email, motDePasse} = req.body ;
+        const {email, motDePasse, role} = req.body ;
 
-        if(!email || !motDePasse){
+        if(!email || !motDePasse || !role){
             return res.status(400).send({
                 success: false,
                 message: 'Please provide Email and Password',
             });
+        }
+        const allowedRoles = ["Student", "Administrator", "Professor"];
+        if (!allowedRoles.includes(role)) {
+          return res.status(400).send({
+            success: false,
+            message: 'Role must be Student, Administrator, or Professor',
+          });
         }
 
         const user = await userModel.findOne({email})
