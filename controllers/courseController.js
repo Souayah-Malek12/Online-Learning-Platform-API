@@ -10,6 +10,7 @@ const createCourseController = async(req, res) => {
                 message: "Please provide all required fields (title, description, videos[], quizzes[]).",
             });
         }
+        
 
         const course = new Course( { title, description, videos, quizzes });
         await course.save();
