@@ -19,6 +19,7 @@ app.use('/courses', require('./routes/courseRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/video', require('./routes/videoRoutes'))
 app.use('/quizzes', require("./routes/quizRoutes"))
+app.use('/chatbot', require('./routes/chatGptRoute'))
 
 
 const PORT = process.env.PORT || 2024;
