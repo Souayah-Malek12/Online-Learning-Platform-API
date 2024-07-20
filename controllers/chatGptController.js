@@ -1,35 +1,42 @@
-const axios = require("axios");
+const axios = require('axios');
 const dotenv = require("dotenv");
 dotenv.config();
-
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY 
-
+  
 const chatGptController = async (req, res) => {
-    const { message } = req.body;
-    try {
-        const response = await axios.post(
-            'https://api.openai.com/v1/completions',
-            {
-                prompt: message,
-                max_tokens: 150,
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${OPENAI_API_KEY}`,
-                },
-            }
-        );
+  const { prompt } = req.body;
+  const apiKey = process.env.OPENAI_API_KEY;
 
-        res.json({ response: response.data.choices[0].text.trim() });
-    } catch (error) {
-        console.error('Error in chatGptController:', error);
-        res.status(500).send({
-            success: false,
-            message: 'Error in chatGpt API',
-            error: error.message,
-        });
-    }
+  try {
+    const response = await axios.post(
+      'https://api.openai.com/v1/completions',
+      {
+        model: 'gpt-3.5-turbo',  
+        prompt: prompt,
+        max_tokens: 100,
+        n: 1,
+        stop: null,
+        temperature: 0.7,
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    res.json({
+      success: true,
+      message: 'ChatGPT API call successful',
+      data: response.data,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Error in ChatGPT API call',
+      error: error.response ? error.response.data : error.message,
+    });
+  }
 };
 
-module.exports = { chatGptController };
+module.exports = {chatGptController};
