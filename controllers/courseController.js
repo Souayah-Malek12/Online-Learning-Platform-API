@@ -28,6 +28,7 @@ const createCourseController = async(req, res) => {
 
 const getCoursesController = async(req, res)=>{
     try{
+        console.log("melek")
         const courses = await Course.find().populate('quizzes');
         return res.status(200).send({
             success: true,
@@ -46,8 +47,10 @@ const getCoursesController = async(req, res)=>{
 
 const getCourseByIdController = async (req, res)=> {
     try {
-        const {id} = req.params.id;
-        const course = await Course.findById(id);
+        const {id} = req.params;
+        const course = await Course.findById(id).populate('quizzes');
+        console.log("working on ");
+        return res.json({course});
     }catch(error){
         console.log(error);
         res.status(500).send({

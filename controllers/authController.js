@@ -56,7 +56,7 @@ const loginController = async(req, res) => {
         if(!email || !motDePasse || !role){
             return res.status(400).send({
                 success: false,
-                message: 'Please provide Email and Password',
+                message: 'Please provide Email and Password and role' ,
             });
         }
         const allowedRoles = ["Student", "Administrator", "Professor"];

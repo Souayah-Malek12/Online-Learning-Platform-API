@@ -21,6 +21,10 @@ const createQuizController = async(req, res)=> {
         }
         const quiz = new quizModel({course, questions})
         await quiz.save();
+
+        courseExist.quizzes.push(quiz._id);
+        await courseExist.save();
+        
         res.status(201).send({
             success: true,
 

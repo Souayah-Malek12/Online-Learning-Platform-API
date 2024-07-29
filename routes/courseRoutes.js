@@ -1,15 +1,16 @@
 const express = require("express")
 
 const router = express.Router();
-const {createCourseController, deleteAllCourseController,getCoursesController, getCourseByIdController, updateCourseController, deleteCourseController} = require("../controllers/courseController")
+const {createCourseController, deleteAllCourseController,getCoursesController, getCourseByIdController, updateCourseController, deleteCourseController} = require("../controllers/courseController");
+const authMiddleware = require("../middellwares/authMiddleware");
 
 
-router.post('/create', createCourseController);
-router.get('/getcourse', getCoursesController)
-router.get('/getcourseById/:id', getCourseByIdController)
-router.put('/updatecourse/:id', updateCourseController)
-router.delete('/deletecourse/:id', deleteCourseController)
-router.delete('/deleteAllcourse/:id', deleteAllCourseController)
+router.post('/create', authMiddleware,createCourseController);
+router.get('/getcourse', authMiddleware ,getCoursesController)
+router.get('/getcourseById/:id', authMiddleware,getCourseByIdController)
+router.put('/updatecourse/:id', authMiddleware,updateCourseController)
+router.delete('/deletecourse/:id',authMiddleware, deleteCourseController)
+router.delete('/deleteAllcourse/:id', authMiddleware, deleteAllCourseController)
 
 
 

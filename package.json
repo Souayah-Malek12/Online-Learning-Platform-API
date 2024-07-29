@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
@@ -20,7 +21,9 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.4",
     "openai": "^4.52.7",
+    "react-redux": "^9.1.2",
     "socket.io": "^4.7.5",
-    "socket.io-client": "^4.7.5"
+    "socket.io-client": "^4.7.5",
+    "toast": "^0.5.4"
   }
 }
