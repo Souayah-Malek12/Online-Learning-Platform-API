@@ -10,7 +10,7 @@ router.get('/getcourse', authMiddleware ,getCoursesController)
 router.get('/getcourseById/:id', authMiddleware,getCourseByIdController)
 router.put('/updatecourse/:id', authMiddleware,updateCourseController)
 router.delete('/deletecourse/:id',authMiddleware, deleteCourseController)
-router.delete('/deleteAllcourse/:id', authMiddleware, deleteAllCourseController)
+router.delete('/deleteAllcourse', authMiddleware, deleteAllCourseController)
 
 
 

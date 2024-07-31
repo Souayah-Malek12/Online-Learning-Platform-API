@@ -4,14 +4,16 @@ const Course = require("../models/courseModel")
 const createCourseController = async(req, res) => {
     try {
         const { title, description, videos, quizzes } = req.body;
-        if (!title || !description || !videos || !quizzes || videos.length === 0 || quizzes.length === 0) {
+        if (!title || !description || !videos || videos.length === 0 ) {
             return res.status(400).json({
                 success: false,
-                message: "Please provide all required fields (title, description, videos[], quizzes[]).",
+                message: "Please provide all required fields (title, description, videos[], ).",
             });
         }
         
-
+        if (!quizzes){
+            quizzes = []
+        }
         const course = new Course( { title, description, videos, quizzes });
         await course.save();
         res.status(201).json({ message: 'Course Created Successfully', course });
